@@ -1,0 +1,3 @@
+[submodule "web/application/third_party/Telegram-PHP"]
+	path = web/application/third_party/Telegram-PHP
+	url = https://github.com/duhow/Telegram-PHP.git
