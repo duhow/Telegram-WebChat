@@ -45,9 +45,9 @@
 			}
 
 			var code = '<div class="media">'
-					.'<div class="media-'+ align +'"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'
-					.'<div class="media-body"><p>' + text + '</p></div>'
-					'</div>';
+					+ '<div class="media-'+ align +'"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'
+					+ '<div class="media-body"><p>' + text + '</p></div>'
+					+ '</div>';
 
 			$("main").append(code);
 		}
