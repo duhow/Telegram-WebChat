@@ -48,7 +48,7 @@
 
 			var code = '<div class="media">';
 			if(align == "left"){ code += '<div class="media-left"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'; }
-			code += '<div class="media-body"><p>' + text + '</p></div>';
+			code += '<div class="media-body text-'+ align +'"><p>' + text + '</p></div>';
 			if(align == "right"){ code += '<div class="media-right"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'; }
 			code += '</div>';
 
