@@ -2,9 +2,22 @@
 
 class Tgchat extends CI_Model {
 
-	public function ask_permission_telegram($uid, $name, $session){
+	public function ask_permission_telegram($uid, $name){
+		// Generate session
+		$session = substr(md5(time() .mt_rand(1000, 9999) .$name), 0, 12);
+
+		$data = [
+			'session' => $session,
+			'uid' => $uid,
+			'ip' => $_SERVER['REMOTE_ADDR'],
+			'status' => FALSE
+		];
+
+		// Create record
+		$this->db->insert('permission', $data);
+
 		$str = "El usuario $name quiere hablar contigo.";
-		return $this->telegram->send
+		$this->telegram->send
 			->chat($uid)
 			->notification(TRUE)
 			->inline_keyboard()
@@ -15,15 +28,29 @@ class Tgchat extends CI_Model {
 			->show()
 			->text($str, 'HTML')
 		->send();
+
+		// Return session
+		return $session;
 	}
 
-	public function get_permission_status($session, $uid){
+	public function resolve_user($user, $only_enabled = FALSE){
+		if($only_enabled){ $this->db->where('enable', TRUE); }
+
+		$query = $this->db
+			->select('telegram')
+			->where('id', $user)
+		->get('users');
+
+		if($query->num_rows() == 0){ return FALSE; }
+		return $query->row()->telegram;
+	}
+
+	public function get_permission_status($session){
 		$query = $this->db
 			->where('session', $session)
-			->where('uid', $uid)
 			->order_by('date', 'DESC')
 			->limit(1)
-		->get('permisssion');
+		->get('permission');
 
 		if($query->num_rows() == 0){ return NULL; }
 		return (bool) $query->row()->status;

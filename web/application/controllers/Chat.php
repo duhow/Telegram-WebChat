@@ -25,15 +25,35 @@ class Chat extends CI_Controller {
 		$this->load->view('chat/chatbox');
 	}
 
+	private function http_json($status, $data = NULL, $httpcode = 200){
+		http_response_code($httpcode);
+		return json_encode(array('status' => $status, 'data' => $data));
+	}
+
 	public function ajax($action){
 		header("Content-Type: application/json");
 
 		switch ($action) {
 			case 'startChat':
-				# code...
+				if($this->input->post_get('user') and $this->input->post_get('name')){
+					$uid = $this->tgchat->resolve_user($this->input->post_get('user'), TRUE);
+					if(!$uid){
+						die($this->http_json("ERROR", "NOT_ENABLED", 404));
+					}
+
+					$session = $this->tgchat->ask_permission_telegram($uid, $this->input->post_get('name'));
+					if(!$session){
+						die($this->http_json("ERROR", "SESSION_ERROR", 400));
+					}
+
+					die($this->http_json("OK", $session));
+				}
 			break;
 			case 'checkPermission':
-
+				if($this->input->post('session')){
+					$status = $this->tgchat->get_permission_status($this->input->post('session'));
+					
+				}
 			break;
 			case 'send':
 
@@ -41,10 +61,9 @@ class Chat extends CI_Controller {
 			case 'messages':
 
 			break;
-			default:
-				# code...
-			break;
 		}
+
+		die($this->http_json("ERROR", "INVALID_QUERY", 404));
 	}
 
 	public function _test($user){
