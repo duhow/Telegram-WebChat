@@ -17,7 +17,7 @@ class Chat extends CI_Controller {
 		];
 
 		$this->load->library('telegram', $bot);
-		$this->load->model('tgchat');
+		$this->load->model(['url', 'tgchat']);
 	}
 
 	public function index($user = NULL){
@@ -26,7 +26,7 @@ class Chat extends CI_Controller {
 
 	public function ajax($action){
 		header("Content-Type: application/json");
-		
+
 		switch ($action) {
 			case 'startChat':
 				# code...
