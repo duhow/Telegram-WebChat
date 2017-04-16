@@ -11,15 +11,16 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 		html,body{ height: 100% }
-		header{ height: 40px; }
+		header{ background: #222; color: white; }
 		footer{ height: 34px; position: fixed !important; bottom: 0; left: 0; background: #AAA; }
+		main .media { margin-top: 10px !important; padding-bottom: 10px; border-bottom: 1px solid #CCC;}
 		main .media img { width: 32px; }
 	</style>
 </head>
 <body>
 	<div class="container">
 		<header>
-			<span>Chat</span>
+			<h1>Chat</h1>
 		</header>
 		<main class="col-xs-12">
 		</main>
