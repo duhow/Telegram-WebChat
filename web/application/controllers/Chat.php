@@ -17,7 +17,8 @@ class Chat extends CI_Controller {
 		];
 
 		$this->load->library('telegram', $bot);
-		$this->load->model(['url', 'tgchat']);
+		$this->load->helper('url');
+		$this->load->model('tgchat');
 	}
 
 	public function index($user = NULL){
