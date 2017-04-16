@@ -5,13 +5,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>Chat</title>
 
-	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.0/sweetalert2.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.0/sweetalert2.min.css">
 	<style>
 		html,body{ height: 100% }
 		header{ background: #222; color: white; }
+		header h2{ margin: 0; padding: 10px; }
 		footer{ height: 34px; position: fixed !important; bottom: 0; left: 0; background: #AAA; }
 		main .media { margin-top: 10px !important; padding-bottom: 10px; border-bottom: 1px solid #CCC;}
 		main .media img { width: 32px; }
@@ -20,7 +24,7 @@
 <body>
 	<div class="container">
 		<header>
-			<h1>Chat</h1>
+			<h2>Chat</h2>
 		</header>
 		<main class="col-xs-12">
 		</main>
@@ -35,30 +39,17 @@
 			</div><!-- /input-group -->
 		</footer>
 	</div>
+	<script src="<?= base_url('js/chat.js'); ?>"></script>
 	<script type="text/javascript">
 		var userpic = "";
-		var userpic_empty = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y";
-
-		function addMessage(text, from){
-			var align = (from == 1 ? "right" : "left");
-			var photo = userpic_empty;
-			if(from == 1){
-				if(userpic){ photo = userpic; }
-				else{ photo = userpic_empty; }
-			}
-
-			var code = '<div class="media">';
-			if(align == "left"){ code += '<div class="media-left"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'; }
-			code += '<div class="media-body text-'+ align +'"><p>' + text + '</p></div>';
-			if(align == "right"){ code += '<div class="media-right"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'; }
-			code += '</div>';
-
-			$("main").append(code);
-		}
+		var userpic_empty = "";
+		var mid = "";
+		var session = "";
 
 		$(function(){
-			addMessage("Hola vendedor!", 1);
-			addMessage("Hola usuario!", 0);
+			Chat.ajax = "<?= site_url('chat/ajax'); ?>";
+			Chat.addMessage("Hola vendedor!", 1);
+			Chat.addMessage("Hola usuario!", 0);
 		});
 	</script>
 </body>

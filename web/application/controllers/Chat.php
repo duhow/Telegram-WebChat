@@ -24,6 +24,28 @@ class Chat extends CI_Controller {
 		$this->load->view('chat/chatbox');
 	}
 
+	public function ajax($action){
+		header("Content-Type: application/json");
+		
+		switch ($action) {
+			case 'startChat':
+				# code...
+			break;
+			case 'checkPermission':
+
+			break;
+			case 'send':
+
+			break;
+			case 'messages':
+
+			break;
+			default:
+				# code...
+			break;
+		}
+	}
+
 	public function _test($user){
 		$this->telegram->send
 			->chat($user)
