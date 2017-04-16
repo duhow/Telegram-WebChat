@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>Chat</title>
 
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -11,7 +12,8 @@
 	<style>
 		html,body{ height: 100% }
 		header{ height: 40px; }
-		footer{ height: 40px; position: fixed; bottom: 0; left: 0; background: #AAA; }
+		footer{ height: 34px; position: fixed !important; bottom: 0; left: 0; background: #AAA; }
+		main .media img { width: 32px; }
 	</style>
 </head>
 <body>
@@ -25,7 +27,7 @@
 			<div class="input-group">
 				<input type="text" class="form-control" placeholder="Escribir mensaje...">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">
+					<button class="btn btn-default" type="button" disabled>
 						<i class="fa fa-send"></i>
 					</button>
 				</span>
@@ -44,10 +46,11 @@
 				else{ photo = userpic_empty; }
 			}
 
-			var code = '<div class="media">'
-					+ '<div class="media-'+ align +'"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'
-					+ '<div class="media-body"><p>' + text + '</p></div>'
-					+ '</div>';
+			var code = '<div class="media">';
+			if(align == "left"){ code += '<div class="media-left"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'; }
+			code += '<div class="media-body"><p>' + text + '</p></div>';
+			if(align == "right"){ code += '<div class="media-right"><a href="#"><img class="media-object" src="'+ photo +'"></a></div>'; }
+			code += '</div>';
 
 			$("main").append(code);
 		}
