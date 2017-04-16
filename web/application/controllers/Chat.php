@@ -17,10 +17,11 @@ class Chat extends CI_Controller {
 		];
 
 		$this->load->library('telegram', $bot);
+		$this->load->model('tgchat');
 	}
 
 	public function index($user = NULL){
-		if(!empty($user) && is_numeric($user)){ $this->_test($user); }
+		$this->load->view('chat/chatbox');
 	}
 
 	public function _test($user){
